@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#AFAFAF"
+    android:layout_width="match_parent"
+    android:paddingBottom="5dp"
+
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    tools:context="com.example.dell.microtechlab.MainActivity">
+    <!-- V1-Layout-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:background="@drawable/text_bg"
+                android:layout_gravity="center"
+                android:text="AC"
+                android:textStyle="bold"
+
+                android:textSize="20dp"
+                />
+        <!-- AC Layout-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/layout_bg"
+                >
+                        <!-- L1 Layout-->
+                        <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                        android:orientation="horizontal"
+                        >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="L1"
+                                android:layout_marginRight="10dp"
+
+                                android:textSize="20dp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="232"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingLeft="3dp"
+                                android:background="#000000"
+                                android:id="@+id/vl1"
+                                android:textColor="@color/myRed"
+                                android:layout_marginRight="5dp"
+                                android:textSize="@dimen/segmentSize"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="V"
+                                android:layout_marginRight="10dp"
+                                android:textSize="20dp"
+                                />
+                            <TextView
+                                android:layout_width="250dp"
+                                android:layout_height="wrap_content"
+                                android:text="4.27"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:id="@+id/il1"
+                                android:paddingLeft="3dp"
+                                android:background="#000000"
+                                android:textColor="@color/myRed"
+                                android:layout_marginRight="5dp"
+                                android:textSize="@dimen/segmentSize"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="A"
+                                android:textSize="20dp"
+                                />
+                        </LinearLayout>
+                <!-- L2 Layout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="L2"
+                        android:layout_marginRight="10dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="232"
+                        android:paddingTop="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:background="#000000"
+                        android:id="@+id/vl2"
+                        android:textColor="@color/myRed"
+                        android:layout_marginRight="5dp"
+                        android:textSize="@dimen/segmentSize"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="V"
+                        android:layout_marginRight="10dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:text="4.21"
+                        android:id="@+id/il2"
+                        android:paddingTop="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:background="#000000"
+                        android:textColor="@color/myRed"
+                        android:layout_marginRight="5dp"
+                        android:textSize="@dimen/segmentSize"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A"
+                        android:textSize="20dp"
+                        />
+                </LinearLayout>
+                <!-- L3 Layout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="L3"
+                        android:layout_marginRight="10dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="232"
+                        android:paddingTop="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:id="@+id/vl3"
+                        android:background="#000000"
+                        android:textColor="@color/myRed"
+                        android:layout_marginRight="5dp"
+                        android:textSize="@dimen/segmentSize"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="V"
+                        android:layout_marginRight="10dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:text="4.22"
+                        android:paddingTop="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:id="@+id/il3"
+                        android:background="#000000"
+                        android:textColor="@color/myRed"
+                        android:layout_marginRight="5dp"
+                        android:textSize="@dimen/segmentSize"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A"
+                        android:textSize="20dp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+           <!-- Power Layout-->
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/layout_bg"
+
+               >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="P "
+                        android:layout_marginRight="15dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="232"
+                        android:paddingTop="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:id="@+id/power"
+                        android:background="#000000"
+                        android:textColor="@color/myRed"
+
+                        android:textSize="@dimen/segmentSize"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Q"
+
+                        android:paddingLeft="3dp"
+                        android:layout_marginRight="8dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:text="4.25"
+
+                        android:paddingRight="3dp"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="3dp"
+                        android:id="@+id/reactive"
+                        android:background="#000000"
+                        android:textColor="@color/myRed"
+                        android:layout_marginRight="5dp"
+                        android:textSize="@dimen/segmentSize"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  "
+                        android:textSize="20dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="PF"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/pfactor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dp"
+                        android:background="#000000"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingTop="3dp"
+
+                        android:text="232"
+                        android:textColor="@color/myRed"
+                        android:textSize="@dimen/segmentSize" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+    </LinearLayout>
+
+    <!-- V2-Layout-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
+
+        android:orientation="vertical">
+        <TextView
+            android:text="DC"
+            android:background="@drawable/text_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:padding="2dp"
+            android:textColor="#000000"
+
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            />
+        <!-- DC Layout-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_gravity="right"
+            android:background="@drawable/layout_bg"
+            >
+            <!-- VDC Layout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VDC"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+
+                    android:layout_height="wrap_content"
+                    android:text="232"
+                    android:paddingTop="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingLeft="3dp"
+                    android:id="@+id/vdc"
+                    android:layout_width="250dp"
+
+                    android:background="#000000"
+                    android:textColor="@color/myRed"
+                    android:layout_marginRight="5dp"
+                    android:textSize="@dimen/segmentSize"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="V"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20dp"
+                    />
+            </LinearLayout>
+            <!-- IDC Layout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IDC"
+                    android:layout_marginRight="18dp"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="4.23"
+                    android:paddingTop="3dp"
+                    android:paddingRight="3dp"
+                    android:id="@+id/idc"
+                    android:paddingLeft="3dp"
+                    android:background="#000000"
+                    android:textColor="@color/myRed"
+                    android:layout_marginRight="5dp"
+                    android:textSize="@dimen/segmentSize"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20dp"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Speed Layout-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="35dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/fullscreen_content"
+
+            android:paddingRight="5dp"
+
+
+
+            >
+            <pl.pawelkleczkowski.customgauge.CustomGauge
+                android:id="@+id/gauge3"
+                android:layout_width="313dp"
+                android:layout_height="313dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="-80dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                app:gaugeEndValue="1000"
+
+                app:gaugePointEndColor="@color/myGreen"
+                app:gaugePointStartColor="@color/myGreen"
+                app:gaugeStartAngle="180"
+                app:gaugeStartValue="0"
+                app:gaugeStrokeCap="BUTT"
+                app:gaugeStrokeColor="@color/myRed"
+                app:gaugeStrokeWidth="20dp"
+                app:gaugeSweepAngle="180"
+                app:gaugeDividerSize="1"
+                app:gaugeDividerColor="@color/greyMain"
+                app:gaugeDividerStep="10"
+                app:gaugeDividerDrawFirst="false"
+                app:gaugeDividerDrawLast="true"
+                />
+
+                <TextView
+
+                    android:text="Speed"
+
+                    android:background="@drawable/text_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:padding="2dp"
+                    android:id="@+id/speed_text_id"
+                    android:textColor="#000000"
+                    android:layout_marginRight="10dp"
+                    android:textSize="20dp"
+                    />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
