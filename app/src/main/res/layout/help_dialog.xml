@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/encoder_shape"
+    android:layout_height="match_parent">
+
+   <ImageView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:src="@drawable/logov"
+       android:layout_gravity="center"
+       android:layout_marginBottom="20dp"
+       android:background="#FFFFFF"
+       />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/help_layout"
+    android:background="@drawable/background2"
+
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/help_text"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:text="Yos"
+        android:padding="10dp"
+        android:typeface="monospace"
+        />
+
+</LinearLayout>
+
+
+</LinearLayout>

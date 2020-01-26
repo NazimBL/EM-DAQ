@@ -2,14 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dell.microtechlab">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.LOCATION_HARDWARE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USB_PERMISSION"></uses-permission>
 
     <uses-feature android:name="android.hardware.usb.host" />
-    <uses-feature android:name="android.hardware.usb">
-    </uses-feature>
+    <uses-feature android:name="android.hardware.usb" />
 
     <application
         android:allowBackup="true"
@@ -19,48 +18,47 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name=".MyService" android:label="My Service">
-            <intent-filter>
-                <action android:name=".MyService" />
-            </intent-filter>
-        </service>
-        <receiver
-            android:enabled="true"
-            android:exported="true"
-            android:name=".StartMyServiceAtBootReceiver"
-            android:label="StartMyServiceAtBootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="landscape"
-            >
+            android:launchMode="singleTask">
+
             <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-            </intent-filter>
-            <meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-                android:resource="@xml/device_filter" />
-            <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <category android:name="android.intent.category.DEFAULT" />
+
             </intent-filter>
+
+                     <intent-filter>
+                         <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                         <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+                     </intent-filter>
+
+                  <meta-data
+                         android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                      android:resource="@xml/device_filter" />
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"
+                android:resource="@xml/device_filter" />
+
         </activity>
-        <!--<activity-alias-->
-            <!--android:targetActivity=".MainActivity"-->
-            <!--android:name=".AliasMySocialNetworkActivity"-->
-            <!--&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity-alias>-->
+        <activity
+            android:name=".ScopeActivity"
+            android:theme="@style/CustomThemme"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask">
+
+        </activity>
+
+        <activity android:name=".HarmonicsActivity"
+            android:theme="@style/CustomThemme"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            >
+        </activity>
     </application>
 
 </manifest>

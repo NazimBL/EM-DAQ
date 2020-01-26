@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/encoder_shape"
+    android:id="@+id/calib_Layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.dell.microtechlab.MainActivity">
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="#AFAFAF"
+        android:src="@drawable/rpm_dialog"
+
+
+        />
+
+
+    <EditText
+        android:layout_width="300dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_vdcG"
+        android:background="@drawable/editext_border"
+        android:hint="VDC Gain"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="numberSigned|numberDecimal"
+        android:layout_gravity="center"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_vdcO"
+        android:layout_gravity="center"
+        android:background="@drawable/editext_border"
+        android:hint="VDC Offset"
+        android:layout_marginBottom="10dp"
+        android:inputType="numberSigned|numberDecimal"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_idcG"
+        android:background="@drawable/editext_border"
+        android:hint="IDC Gain"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="numberSigned|numberDecimal"
+        android:layout_gravity="center"
+        />
+    <EditText
+        android:layout_width="300dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_idcO"
+        android:layout_gravity="center"
+        android:background="@drawable/editext_border"
+        android:hint="IDC Offset"
+        android:layout_marginBottom="10dp"
+        android:inputType="numberSigned|numberDecimal"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel2"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Cancel"
+            android:textColor="#000000"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Validate"
+            android:textSize="17dp"
+            style="@style/Widget.AppCompat.Button"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:textColor="#000000"
+            android:id="@+id/validate2"
+            android:layout_marginLeft="10dp"
+            />
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

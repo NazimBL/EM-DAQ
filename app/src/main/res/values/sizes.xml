@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<dimen name="segmentSize">165dp</dimen>
-
-
+<dimen name="segmentSize">150dp</dimen>
 
 </resources>

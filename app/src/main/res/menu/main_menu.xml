@@ -16,13 +16,8 @@
         android:id="@+id/measure_id"
         >
     </item>
-    <item
-        android:title="Help"
-        android:icon="@drawable/acdc"
-        app:showAsAction="always"
 
-        >
-    </item>
+
 
 
 

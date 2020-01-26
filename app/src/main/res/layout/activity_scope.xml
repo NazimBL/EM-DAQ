@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/scope_Layout"
+    android:padding="3dp"
+    android:background="@drawable/layout_shape"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.dell.microtechlab.HarmonicsActivity">
+
+
+    <RadioGroup
+        android:id="@+id/radioSex2"
+        android:orientation="horizontal"
+        android:padding="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radiol12"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+            android:typeface="monospace"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="L1"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radiol22"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:typeface="monospace"
+            android:foregroundTint="@color/myRed"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="L2" />
+        <RadioButton
+            android:id="@+id/radiol32"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:layout_height="wrap_content"
+            android:text="L3" />
+        <RadioButton
+            android:id="@+id/radiodc"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+
+            android:layout_height="wrap_content"
+            android:text="DC"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioV"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+            android:layout_marginLeft="50dp"
+            android:layout_height="wrap_content"
+            android:text="V"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/radioI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/radiova"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+            android:layout_marginLeft="100dp"
+            android:layout_height="wrap_content"
+            android:text="V a,b"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/radioia"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+            android:layout_height="wrap_content"
+            android:text="I a,b"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/hold"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/myRed"
+            android:foregroundTint="@color/myRed"
+            android:layout_marginLeft="100dp"
+            android:layout_height="wrap_content"
+            android:text="Hold"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:checked="false" />
+
+
+    </RadioGroup>
+
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="800dp"
+        android:layout_height="550dp"
+        android:layout_marginBottom="40dp"
+        android:layout_gravity="center"
+        android:id="@+id/graph"
+        />
+
+
+
+</LinearLayout>

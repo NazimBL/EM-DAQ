@@ -9,45 +9,46 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
-import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.nio.ByteBuffer;
-
-import static com.example.dell.microtechlab.MainActivity.bytes;
-import static com.example.dell.microtechlab.MainActivity.inEnd;
-import static com.example.dell.microtechlab.MainActivity.outEnd;
-import static com.example.dell.microtechlab.MainActivity.received;
-import static com.example.dell.microtechlab.MainActivity.usbInterface;
-import static com.example.dell.microtechlab.MainActivity.vl1;
+import static com.example.dell.microtechlab.MainActivity.startprocess;
+import static com.example.dell.microtechlab.MainActivity.usbConnected;
+import static com.example.dell.microtechlab.Processing.graphSet;
+import static com.example.dell.microtechlab.Shared.VENDOR_ID;
+import static com.example.dell.microtechlab.Shared.bytes;
+import static com.example.dell.microtechlab.Shared.inEnd;
+import static com.example.dell.microtechlab.Shared.manager;
+import static com.example.dell.microtechlab.Shared.outEnd;
+import static com.example.dell.microtechlab.Shared.results;
+import static com.example.dell.microtechlab.Shared.usbInterface;
 
 /**
- * Created by DELL on 15/02/2018.
+ * Created by Bellabaci Nazim on 15/02/2018.
  */
 
 public class MyUSB {
 
+    public static UsbDeviceConnection connection;
 
-    // Toast.makeText(MainActivity.this,"productId :"+device.getProductId(),Toast.LENGTH_SHORT).show();
-    // Toast.makeText(MainActivity.this,"vendor id :"+device.getVendorId(),Toast.LENGTH_SHORT).show();
+    public static byte[] vl1_bytes=new byte[64];
+    public static byte[] il1_bytes=new byte[64];
+    public static byte[] vl2_bytes=new byte[64];
+    public static byte[] il2_bytes=new byte[64];
+    public static byte[] vl3_bytes=new byte[64];
+    public static byte[] il3_bytes=new byte[64];
+    public static byte[] vdc1_bytes=new byte[64];
+    public static byte[] vdc2_bytes=new byte[64];
+    public static byte[] idc_bytes=new byte[64];
+    public static byte[] encoder_buff=new byte[64];
+
     public static byte[] first=new byte[64];
-    public static byte[] second=new byte[64];
-    public static byte[] third=new byte[64];
-    public static byte[] four=new byte[64];
-    public static byte[] five=new byte[64];
-    public static byte[] six=new byte[64];
-    public static byte[] seven=new byte[64];
-    public static byte[] eight=new byte[64];
-    public static byte[] nine=new byte[64];
 
+    public static UsbInterface findAdbInterface(UsbDevice device) {
 
-    public static UsbInterface findAdbInterface(UsbDevice device, Context context) {
-
+        if(device.getVendorId()!=VENDOR_ID)return null;
         int count = device.getInterfaceCount();
-       // Toast.makeText(context,"count : "+count,Toast.LENGTH_SHORT).show();
         for (int i = 0; i < count; i++) {
-       //     Toast.makeText(context,"interface loop : "+i,Toast.LENGTH_SHORT).show();
+
             UsbInterface intf = device.getInterface(i);
             return intf;
 
@@ -55,72 +56,72 @@ public class MyUSB {
         return null;
     }
 
-    public static void manageEndpoints(Context contenxt){
+    public static void manageEndpoints(){
 
         outEnd=null;
         inEnd=null;
 
         for (int i = 0; i < usbInterface.getEndpointCount(); i++) {
+
             UsbEndpoint ep = usbInterface.getEndpoint(i);
 
-            if (ep.getDirection() == UsbConstants.USB_DIR_OUT) {
-                outEnd = ep;
-               // Toast.makeText(contenxt,"out end point get direction  : "+MainActivity.outEnd.getDirection(),Toast.LENGTH_LONG).show();
-            } else {
-                inEnd = ep;
-               // Toast.makeText(contenxt,"in end point get direction  : "+inEnd.getDirection(),Toast.LENGTH_LONG).show();
-            }
+            if (ep.getDirection() == UsbConstants.USB_DIR_OUT) outEnd = ep;
+            else inEnd = ep;
 
         }
-
     }
+
     public static  void usbCom(UsbDevice device,Context context){
 
-        manageEndpoints(context);
+        manageEndpoints();
 
-
-        if(outEnd!=null && device!=null && usbInterface!=null) {
-
+        if(outEnd!=null && device!=null && usbInterface!=null ) {
+            if(device.getVendorId()!=VENDOR_ID)return ;
+            usbConnected=true;
             PendingIntent pendingIntent=PendingIntent.getBroadcast(context,0,
                     new Intent(UsbManager.EXTRA_PERMISSION_GRANTED),0);
-            MainActivity.manager.requestPermission(device,pendingIntent);
-            UsbDeviceConnection connection=null;
-            if(MainActivity.manager.hasPermission(device)) connection=MainActivity.manager.openDevice(device);
+            manager.requestPermission(device,pendingIntent);
+            connection=null;
+            if(manager.hasPermission(device)) connection=manager.openDevice(device);
 
+            //turn this to write / read methods
             try {
                 if (connection != null) {
+
                     if (connection.claimInterface(usbInterface,true)) {
+
 
                         bytes ="OK".getBytes();
                         try {
 
                             int transfer = connection.bulkTransfer(outEnd,bytes, bytes.length,0);
-                            receiveBruteForce(connection,context);
-                            //if reception=2 read encoder value
-                            //int reception1=connection.bulkTransfer(inEnd,first,first.length,0);
-                            //int reception2=connection.bulkTransfer(inEnd,second,second.length,0);
+                            getAdeData();
+                            convertData(context);
 
-                            vl1= convertBigEndian(first,context);
-                            MainActivity.vl2=convertBigEndian(second,context);
-                            MainActivity.vl3=convertBigEndian(third,context);
-                            MainActivity.il1=convertBigEndian(four,context);
-                            MainActivity.il2=convertBigEndian(five,context);
-                            MainActivity.il3=convertBigEndian(six,context);
-                            MainActivity.vdc1=convertBigEndian(seven,context);
-                            MainActivity.vdc2=convertBigEndian(eight,context);
-                            MainActivity.idc=convertBigEndian(nine,context);
+                            results=Processing.FetchAdeData(context);
+                            graphSet();
+                            Processing.ByPhaseCalc();
+                            long difference=System.currentTimeMillis()-startprocess;
 
+                            //takes around 30 ms
+                            //Toast.makeText(context,"usb time : "+difference,Toast.LENGTH_SHORT).show();
+                            MainActivity.sync=true;
 
 
                         }catch (Exception e){
-                            Toast.makeText(context,e.toString(),Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(context,e.toString()+" "+context.getClass(),Toast.LENGTH_SHORT).show();
+                            connection.releaseInterface(usbInterface);
+                            connection.close();
                         }
 
-                    } else Toast.makeText(context,"couldnt claim interface",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context,"couldnt claim interface",Toast.LENGTH_SHORT).show();
+                        connection.releaseInterface(usbInterface);
+                        connection.close();
+                    }
 
                 } else {
-                    connection.close();
+
                     Toast.makeText(context,"couldnt open connection  ",Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
@@ -128,49 +129,48 @@ public class MyUSB {
 
             }
 
-        }else  Toast.makeText(context,"no end point found",Toast.LENGTH_SHORT).show();
-
-
-    }
-
-    public static short[] convertBigEndian(byte[] reception,Context c){
-        short[] measures=new short[32];
-
-        byte[] rec=new byte[2];
-        int j=0;
-
-        for(int i=0;i<64;i++){
-
-            rec[0]=reception[i];
-            rec[1]=reception[i+1];
-
-            //Toast.makeText(c,"high "+(int)(rec[0]&0xff)+" low "+(int)(rec[1]&0xff),Toast.LENGTH_SHORT).show();
-            ByteBuffer wrapped = ByteBuffer.wrap(rec);
-            measures[j] = wrapped.getShort();
-            //Toast.makeText(c,"measure : "+measures[j],Toast.LENGTH_SHORT).show();
-            j++;
-            i++;
+        }else{
+            usbConnected=false;
+            Toast.makeText(context,"no end point found",Toast.LENGTH_SHORT).show();
         }
-        for(int i=0;i<32;i++) measures[i]=(short)(measures[i]-2048);
 
 
-        return measures;
     }
 
 
-    public static void receiveBruteForce(UsbDeviceConnection connection, Context context){
+    public static void getAdeData(){
 
         if(connection==null)return;
-        int reception1=connection.bulkTransfer(inEnd,first,first.length,0);
-        int reception2=connection.bulkTransfer(inEnd,second,second.length,0);
-        int reception3=connection.bulkTransfer(inEnd,third,third.length,0);
-        int reception4=connection.bulkTransfer(inEnd,four,four.length,0);
-        int reception5=connection.bulkTransfer(inEnd,five,five.length,0);
-        int reception6=connection.bulkTransfer(inEnd,six,six.length,0);
-        int reception7=connection.bulkTransfer(inEnd,seven,seven.length,0);
-        int reception8=connection.bulkTransfer(inEnd,eight,eight.length,0);
-        int reception9=connection.bulkTransfer(inEnd,nine,nine.length,0);
+
+        int receptionv11=connection.bulkTransfer(inEnd,first,first.length,0);
+        connection.releaseInterface(usbInterface);
+        connection.close();
+    }
+
+    public static void convertData(Context context){
+
+        int j=0;
+        int D[]=new int[64];
+        for(int i=0;i<64;i++)D[i]=first[i]&0xFF;
+        //lookout for this
+        for(int k=0;k<22;k++){
+
+
+          if(k==13 || k==17){
+              Shared.data[k]=((D[j]*256)+(D[j+1]));
+              j+=2;
+          }
+          else  {
+
+              Shared.data[k]=(D[j]*65536)+(D[j+1]*256)+(D[j+2]);
+              j+=3;
+            }
+
+        }
 
     }
+
+
+
 
 }

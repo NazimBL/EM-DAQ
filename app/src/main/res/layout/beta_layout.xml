@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:paddingBottom="5dp"
 
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
+    android:paddingLeft="2dp"
     android:paddingTop="5dp"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,7 +29,6 @@
                 android:layout_gravity="center"
                 android:text="AC"
                 android:textStyle="bold"
-
                 android:textSize="20dp"
                 />
         <!-- AC Layout-->
@@ -54,35 +52,40 @@
                                 android:layout_height="wrap_content"
                                 android:text="L1"
                                 android:layout_marginRight="10dp"
-
+                                android:textColor="#000000"
+                                android:textStyle="bold"
                                 android:textSize="20dp"
                                 />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="232"
-                                android:paddingTop="3dp"
-                                android:paddingRight="3dp"
+                                android:text="220"
+                                android:paddingTop="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="3dp"
                                 android:paddingLeft="3dp"
                                 android:background="#000000"
                                 android:id="@+id/vl1"
-                                android:textColor="@color/myRed"
+                                android:textColor="@color/myGreen"
                                 android:layout_marginRight="5dp"
                                 android:textSize="@dimen/segmentSize"
                                 />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="V"
+                                android:text="V "
+                                android:textStyle="bold"
+                                android:textColor="#000000"
                                 android:layout_marginRight="10dp"
                                 android:textSize="20dp"
                                 />
                             <TextView
                                 android:layout_width="250dp"
                                 android:layout_height="wrap_content"
-                                android:text="4.27"
-                                android:paddingTop="3dp"
-                                android:paddingRight="3dp"
+                                android:text="9.27"
+                                android:paddingTop="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingBottom="3dp"
                                 android:id="@+id/il1"
                                 android:paddingLeft="3dp"
                                 android:background="#000000"
@@ -93,7 +96,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="A"
+                                android:text="A      "
+                                android:textStyle="bold"
+                                android:textColor="#000000"
                                 android:textSize="20dp"
                                 />
                         </LinearLayout>
@@ -108,26 +113,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="L2"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_marginRight="10dp"
                         android:textSize="20dp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="232"
-                        android:paddingTop="3dp"
-                        android:paddingRight="3dp"
+                        android:text="189"
+                        android:paddingTop="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
                         android:paddingLeft="3dp"
                         android:background="#000000"
                         android:id="@+id/vl2"
-                        android:textColor="@color/myRed"
+                        android:textColor="@color/myGreen"
                         android:layout_marginRight="5dp"
                         android:textSize="@dimen/segmentSize"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="V"
+                        android:text="V "
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_marginRight="10dp"
                         android:textSize="20dp"
                         />
@@ -136,8 +146,9 @@
                         android:layout_height="wrap_content"
                         android:text="4.21"
                         android:id="@+id/il2"
-                        android:paddingTop="3dp"
-                        android:paddingRight="3dp"
+                        android:paddingTop="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
                         android:paddingLeft="3dp"
                         android:background="#000000"
                         android:textColor="@color/myRed"
@@ -147,7 +158,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A"
+                        android:text="A  "
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:textSize="20dp"
                         />
                 </LinearLayout>
@@ -163,35 +176,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="L3"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_marginRight="10dp"
                         android:textSize="20dp"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="232"
-                        android:paddingTop="3dp"
-                        android:paddingRight="3dp"
+                        android:text="089"
+                        android:paddingTop="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
                         android:paddingLeft="3dp"
                         android:id="@+id/vl3"
                         android:background="#000000"
-                        android:textColor="@color/myRed"
+                        android:textColor="@color/myGreen"
                         android:layout_marginRight="5dp"
                         android:textSize="@dimen/segmentSize"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="V"
+                        android:text="V "
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:layout_marginRight="10dp"
                         android:textSize="20dp"
                         />
                     <TextView
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:text="4.22"
-                        android:paddingTop="3dp"
-                        android:paddingRight="3dp"
+                        android:text="1.08"
+                        android:paddingTop="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
                         android:paddingLeft="3dp"
                         android:id="@+id/il3"
                         android:background="#000000"
@@ -202,13 +221,28 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A"
+                        android:text="A  "
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:textSize="20dp"
                         />
                 </LinearLayout>
 
             </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
 
+            android:padding="2dp"
+            android:textColor="#000000"
+            android:background="@drawable/text_bg"
+            android:layout_gravity="center"
+            android:text="Power"
+            android:textStyle="bold"
+
+            android:textSize="20dp"
+            />
            <!-- Power Layout-->
             <LinearLayout
             android:layout_width="wrap_content"
@@ -219,6 +253,8 @@
                 android:background="@drawable/layout_bg"
 
                >
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,53 +264,52 @@
 
                     >
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:text="P "
-                        android:layout_marginRight="15dp"
-                        android:textSize="20dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="232"
-                        android:paddingTop="3dp"
-                        android:paddingRight="3dp"
+                        android:text="26.6"
+                        android:paddingTop="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
                         android:paddingLeft="3dp"
                         android:id="@+id/power"
                         android:background="#000000"
-                        android:textColor="@color/myRed"
-
+                        android:textColor="@color/myYellow"
                         android:textSize="@dimen/segmentSize"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Q"
-
+                        android:text="KW"
+                        android:textColor="#000000"
                         android:paddingLeft="3dp"
+                        android:id="@+id/KW_id"
+                        android:textStyle="bold"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
                         />
                     <TextView
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:text="4.25"
+                        android:text="9.75"
 
-                        android:paddingRight="3dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
                         android:paddingLeft="3dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="12dp"
                         android:id="@+id/reactive"
                         android:background="#000000"
-                        android:textColor="@color/myRed"
+                        android:textColor="@color/myYellow"
                         android:layout_marginRight="5dp"
                         android:textSize="@dimen/segmentSize"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  "
+                        android:text="VAR"
+                        android:id="@+id/KVAR_id"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
                         android:textSize="20dp"
                         />
 
@@ -284,31 +319,58 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="PF"
-                        android:textSize="20dp" />
-
-                    <TextView
                         android:id="@+id/pfactor"
-                        android:layout_width="wrap_content"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="3dp"
                         android:background="#000000"
                         android:paddingLeft="3dp"
-                        android:paddingRight="3dp"
-                        android:paddingTop="3dp"
-
-                        android:text="232"
-                        android:textColor="@color/myRed"
+                        android:paddingRight="12dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="3dp"
+                        android:text="0.93"
+                        android:textColor="@color/myYellow"
                         android:textSize="@dimen/segmentSize" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PF "
+                        android:textColor="#000000"
+                        android:paddingLeft="3dp"
+                        android:textStyle="bold"
+                        android:id="@+id/pf_id"
+                        android:layout_marginRight="8dp"
+                        android:textSize="20dp"
+                        />
+                    <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:text="27.7"
+
+                        android:paddingRight="12dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="3dp"
+                        android:paddingTop="12dp"
+                        android:id="@+id/apparent"
+                        android:background="#000000"
+                        android:textColor="@color/myYellow"
+                        android:layout_marginRight="5dp"
+                        android:textSize="@dimen/segmentSize"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="KVA "
+                        android:id="@+id/KVA_id"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:textSize="20dp"
+                        />
 
                 </LinearLayout>
 
@@ -316,109 +378,97 @@
     </LinearLayout>
 
     <!-- V2-Layout-->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="140dp"
 
         android:orientation="vertical">
+
         <TextView
-            android:text="DC"
-            android:background="@drawable/text_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/text_bg"
             android:gravity="center"
-            android:textStyle="bold"
             android:padding="2dp"
+            android:text="DC"
             android:textColor="#000000"
 
-            android:layout_gravity="center"
             android:textSize="20dp"
-            />
+            android:textStyle="bold" />
         <!-- DC Layout-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@drawable/layout_bg"
             android:orientation="vertical"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:layout_gravity="right"
-            android:background="@drawable/layout_bg"
-            >
+
+            android:paddingRight="3dp">
             <!-- VDC Layout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
                 android:orientation="horizontal"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VDC"
-                    android:layout_marginRight="10dp"
-                    android:textSize="20dp"
-                    />
+                android:paddingTop="5dp">
+
 
                 <TextView
 
-                    android:layout_height="wrap_content"
-                    android:text="232"
-                    android:paddingTop="3dp"
-                    android:paddingRight="3dp"
-                    android:paddingLeft="3dp"
                     android:id="@+id/vdc"
-                    android:layout_width="250dp"
-
+                    android:layout_width="334dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:background="#000000"
-                    android:textColor="@color/myRed"
-                    android:layout_marginRight="5dp"
-                    android:textSize="@dimen/segmentSize"
-                    />
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+
+
+                    android:paddingTop="12dp"
+                    android:text="22"
+                    android:textColor="@color/myGreen"
+                    android:textSize="@dimen/segmentSize" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="V"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="3dp"
+                    android:text="V "
+                    android:textColor="#000000"
                     android:textSize="20dp"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
             <!-- IDC Layout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="IDC"
-                    android:layout_marginRight="18dp"
-                    android:textSize="20dp"
-                    />
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
 
                 <TextView
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:text="4.23"
-                    android:paddingTop="3dp"
-                    android:paddingRight="3dp"
                     android:id="@+id/idc"
-                    android:paddingLeft="3dp"
+                    android:layout_width="334dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
                     android:background="#000000"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingTop="12dp"
+                    android:text="2.23"
                     android:textColor="@color/myRed"
-                    android:layout_marginRight="5dp"
-                    android:textSize="@dimen/segmentSize"
-                    />
+                    android:textSize="@dimen/segmentSize" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
                     android:text="A"
-                    android:layout_marginRight="10dp"
+                    android:textColor="#000000"
                     android:textSize="20dp"
-                    />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -426,67 +476,172 @@
 
         <!-- Speed Layout-->
         <LinearLayout
-            android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="35dp"
-            android:paddingLeft="5dp"
             android:id="@+id/fullscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/layout_bg"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="17dp">
 
-            android:paddingRight="5dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
 
-
-            >
-            <pl.pawelkleczkowski.customgauge.CustomGauge
-                android:id="@+id/gauge3"
-                android:layout_width="313dp"
-                android:layout_height="313dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="-80dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="15dp"
-                app:gaugeEndValue="1000"
-
-                app:gaugePointEndColor="@color/myGreen"
-                app:gaugePointStartColor="@color/myGreen"
-                app:gaugeStartAngle="180"
-                app:gaugeStartValue="0"
-                app:gaugeStrokeCap="BUTT"
-                app:gaugeStrokeColor="@color/myRed"
-                app:gaugeStrokeWidth="20dp"
-                app:gaugeSweepAngle="180"
-                app:gaugeDividerSize="1"
-                app:gaugeDividerColor="@color/greyMain"
-                app:gaugeDividerStep="10"
-                app:gaugeDividerDrawFirst="false"
-                app:gaugeDividerDrawLast="true"
-                />
+                <de.nitri.gauge.Gauge
+                    android:id="@+id/gauge3"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.75"
+                    app:labelTextSize="15"
+                    app:lowerText="x10"
+                    app:maxValue="300"
+                    app:minValue="0"
+                    app:textSize="15"
+                    app:totalNicks="150"
+                    app:upperText="Rpm"
+                    app:valuePerNick="3"></de.nitri.gauge.Gauge>
 
                 <TextView
 
-                    android:text="Speed"
-
-                    android:background="@drawable/text_bg"
+                    android:id="@+id/speed_segment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
                     android:gravity="center"
-                    android:textStyle="bold"
-                    android:padding="2dp"
-                    android:id="@+id/speed_text_id"
-                    android:textColor="#000000"
-                    android:layout_marginRight="10dp"
-                    android:textSize="20dp"
-                    />
+                    android:layout_marginBottom="40dp"
+                   android:paddingLeft="2dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="5dp"
+                    android:background="#000000"
+                    android:textColor="@color/myGreen"
+                    android:layout_marginLeft="125dp"
+                    android:text="1220"
+                    android:textSize="23dp"
+
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <TextView
+
+                android:id="@+id/speed_text_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/text_bg"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Motor Speed"
+                android:textColor="#000000"
+                android:textSize="20dp"
+
+                android:textStyle="bold" />
 
         </LinearLayout>
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logov"
+            android:layout_marginLeft="200dp"
+            style="?android:attr/borderlessButtonStyle"
+
+            />
 
 
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="1dp"
+
+        >
+        <ImageButton
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/scope_id"
+            android:src="@drawable/signal3"
+            android:layout_marginRight="5dp"
+            />
+        <ImageButton
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/save_id"
+            android:layout_marginTop="5dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:src="@drawable/save3"
+            />
+        <ImageButton
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/thd_id"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/graph3"
+            />
+        <ImageButton
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/encoder_id"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/rpm3l"
+            style="?android:attr/borderlessButtonStyle"
+            />
+        <ImageButton
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/help_id"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/about"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:textColor="#000000"
+            android:layout_height="wrap_content"
+            android:id="@+id/callib_l1"
+            android:text=""
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:textColor="#000000"
+            android:layout_height="wrap_content"
+            android:id="@+id/callib_l2"
+            android:text=""
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:typeface="monospace"
+            android:textColor="#000000"
+            android:layout_height="wrap_content"
+            android:id="@+id/callib_l3"
+            android:text=" "
+            />
+
+    </LinearLayout>
 </LinearLayout>

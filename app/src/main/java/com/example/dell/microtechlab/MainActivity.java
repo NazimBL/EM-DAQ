@@ -1,361 +1,393 @@
 package com.example.dell.microtechlab;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.LauncherActivity;
-import android.content.ComponentName;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbEndpoint;
-import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
-import android.media.Image;
-import android.os.Environment;
-import android.os.Handler;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Looper;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import pl.pawelkleczkowski.customgauge.CustomGauge;
+import de.nitri.gauge.Gauge;
 
-public class MainActivity extends AppCompatActivity {
+import static com.example.dell.microtechlab.Shared.ACTION_USB_ATTACHED;
+import static com.example.dell.microtechlab.Shared.ACTION_USB_DETACHED;
+import static com.example.dell.microtechlab.Shared.Dc_ids;
+import static com.example.dell.microtechlab.Shared.ENCODER_MAX_RPM;
+import static com.example.dell.microtechlab.Shared.ENCODER_PULSES;
+import static com.example.dell.microtechlab.Shared.HELP;
+import static com.example.dell.microtechlab.Shared.Iac_ids;
+import static com.example.dell.microtechlab.Shared.NAZIM;
+import static com.example.dell.microtechlab.Shared.VENDOR_ID;
+import static com.example.dell.microtechlab.Shared.Vac_ids;
+import static com.example.dell.microtechlab.Shared.finalResults;
+import static com.example.dell.microtechlab.Shared.manager;
+import static com.example.dell.microtechlab.Shared.power_id;
+import static com.example.dell.microtechlab.Shared.stmUsb;
+import static com.example.dell.microtechlab.Shared.timeStamp;
+import static com.example.dell.microtechlab.Shared.tp;
+import static com.example.dell.microtechlab.Shared.units_ids;
+import static com.example.dell.microtechlab.Shared.usbInterface;
 
-    public static TextView[] vac_text=new TextView[3];
-    public static TextView[] iac_text=new TextView[3];
-    public static TextView[] dc_text=new TextView[2];
-    public static TextView[] power_text=new TextView[3];
-    public static TextView speedText;
-    StartMyServiceAtBootReceiver receiver;
-    int count=0;
-    public static Typeface tp;
-    public static final String ACTION_USB_ATTACHED  = "android.hardware.usb.action.USB_DEVICE_ATTACHED";
-
-    public static UsbManager manager;
-    public static UsbInterface usbInterface;
-    public static UsbEndpoint outEnd,inEnd;
-    UsbDevice stmUsb;
-
-    long startTime=System.currentTimeMillis();
-    HomeBroadcastReceiver homeB=new HomeBroadcastReceiver();
-    IntentFilter intentFilter=new IntentFilter();
-
-    public static byte[] bytes;
-    public static byte[] received=new byte[64];
-    public static short[] vl1=new short[32];
-    public static short[] vl2=new short[32];
-    public static short[] vl3=new short[32];
-    public static short[] il1=new short[32];
-    public static short[] il2=new short[32];
-    public static short[] il3=new short[32];
-    public static short[] vdc1=new short[32];
-    public static short[] vdc2=new short[32];
-    public static short[] idc=new short[32];
+public class MainActivity extends Activity {
 
 
-    public static double finalResults[]=new double[9];
+    private boolean pressed=false,flashDiscTag=false;
 
-    private static final boolean AUTO_HIDE = true;
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mControlsView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
+
+    private final BroadcastReceiver UsbDetachReceiver = new BroadcastReceiver() {
         @Override
-        public void run() {
+        public void onReceive(Context context, Intent intent) {
 
-            mControlsView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
+            UsbDevice device;
 
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+            if (intent.getAction().toString() == ACTION_USB_DETACHED) {
 
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+
+                device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                if (device.getVendorId() == VENDOR_ID) {
+                    usbTag=false;
+                    guiUpdate=false;
+
+                }
+
             }
-            return false;
         }
-    };
-    private CustomGauge gauge3;
-    public static boolean homeTag=true;
 
-    long timeStamp=200;//in millis
-    Timer autoupdate;
+    };
+
+    public static TextView[] vac_text = new TextView[3];
+    public static TextView[] iac_text = new TextView[3];
+    public static TextView[] dc_text = new TextView[2];
+    public static TextView[] power_text = new TextView[4];
+    public static TextView[] units_text = new TextView[4];
+
+
+    public static TextView speedText,speedSegment;
+    private int count = 0;
+
+    public static  long startprocess;
+    public static android.os.Handler handler;
+    public static Runnable runnable;
+
+    long startTime = System.currentTimeMillis();
+
+    private ImageButton save,scope,thd,encoder_config,help;
+    public static Gauge g;
+
+    public static boolean homeTag = true;
+    public static boolean usbConnected = false;
+
+    public static boolean sync=false,guiUpdate=false,usbTag=true;
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initialize();
-        //MainActivity.speedText.setTextSize(10);
-        //MainActivity.power_text[0].setTextSize(15);
-
-        IntentFilter inf=new IntentFilter(Intent.ACTION_MAIN);
-        registerReceiver(homeB,inf);
-
-        mControlsView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hide();
-            }
-        });
-        power_text[0].setOnClickListener(new View.OnClickListener() {
+        scope.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                 //   usbTask();
-                  ref(timeStamp);
+                startActivity(new Intent(MainActivity.this,ScopeActivity.class));
+            }
+        });
 
+        thd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,HarmonicsActivity.class));
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                pressed=!pressed;
 
             }
         });
 
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return true;
+
+        power_text[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                secretClick(1);
+
+            }
+        });
+
+        dc_text[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                secretClick(4);
+            }
+        });
+
+
+
+        help.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                helpDialog();
+               // write_toFile();
+
+            }
+        });
+
+
+
+        handler=new android.os.Handler(Looper.getMainLooper());
+        runnable=new Runnable() {
+            @Override
+            public void run() {
+
+                try{
+
+                    if(usbTag)usbTask();
+                    if(guiUpdate && sync ){
+
+                        DB.segmentDisplay(MainActivity.this);
+                        sync=false;
+
+                    }
+
+                    if(pressed){
+                        write_toFile();
+                        if(flashDiscTag)Toast.makeText(MainActivity.this,"Saving Data to Flash Disc !",Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch (Exception e){
+                    Toast.makeText(MainActivity.this,""+e.toString(),Toast.LENGTH_SHORT).show();
+                }
+                handler.postDelayed(runnable,timeStamp);
+            }
+        };
+
+        handler.post(runnable);
+
+
     }
 
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        hide();
-        try {
-           ref(timeStamp);
-        }catch (Exception e){
-            Log.d("Nazim","Timer exception"+e.toString());
-        }
-
-    }
     void usbTask(){
-        try {
 
+        sync=false;
+        startprocess=System.currentTimeMillis();
+        try {
 
             if(checkUsb()){
 
                 MyUSB.usbCom(stmUsb,MainActivity.this);
-                if(vl1 != null) {
 
-                   // for(int i=0;i<32;i++)Toast.makeText(MainActivity.this,"measure "+vl1[0],Toast.LENGTH_SHORT).show();
-                    DB.segmentDisplay(MainActivity.this);
-                    // write_toFile();
-                }
+            }
 
-
-            }//else Toast.makeText(MainActivity.this,"no USB connected ",Toast.LENGTH_LONG).show();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
 
     public void initialize(){
 
-        IntentFilter intentF=new IntentFilter();
-        intentF.addAction(Intent.ACTION_BOOT_COMPLETED);
-        intentF.addAction(ACTION_USB_ATTACHED);
 
-
-        setContentView(R.layout.beta_layout);
-        mControlsView = findViewById(R.id.fullscreen_content);
-
-        gauge3=(CustomGauge)findViewById(R.id.gauge3);
-        gauge3.setValue(100);
 
         manager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        setContentView(R.layout.beta_layout);
+
+        g=(Gauge)findViewById(R.id.gauge3);
+        scope=(ImageButton)findViewById(R.id.scope_id);
+        encoder_config=(ImageButton)findViewById(R.id.encoder_id);
+        save=(ImageButton)findViewById(R.id.save_id);
+        thd=(ImageButton)findViewById(R.id.thd_id);
+        help=(ImageButton)findViewById(R.id.help_id);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().getDecorView().setSystemUiVisibility(View.GONE);
 
-        hide();
-
-        receiver=new StartMyServiceAtBootReceiver();
-        registerReceiver(receiver,intentFilter);
         tp= Typeface.createFromAsset(getAssets(),"7segment.ttf");
         speedText=(TextView)findViewById(R.id.speed_text_id);
+        speedSegment=(TextView)findViewById(R.id.speed_segment);
+
+        Shared.l1=(TextView) findViewById(R.id.callib_l1);
+        Shared.l2=(TextView) findViewById(R.id.callib_l2);
+        Shared.l3=(TextView) findViewById(R.id.callib_l3);
+
+
+        speedSegment.setTypeface(tp);
         for(int i=0;i<3;i++){
-            vac_text[i]=(TextView)findViewById(DB.Vac_ids[i]);
+
+            vac_text[i]=(TextView)findViewById(Vac_ids[i]);
             vac_text[i].setTypeface(tp);
 
-            iac_text[i]=(TextView)findViewById(DB.Iac_ids[i]);
+            iac_text[i]=(TextView)findViewById(Iac_ids[i]);
             iac_text[i].setTypeface(tp);
-            power_text[i]=(TextView)findViewById(DB.power_id[i]);
+
+            power_text[i]=(TextView)findViewById(power_id[i]);
             power_text[i].setTypeface(tp);
 
+            units_text[i]=(TextView)findViewById(units_ids[i]);
+
             if(i<2){
-                dc_text[i]=(TextView)findViewById(DB.Dc_ids[i]);
+                dc_text[i]=(TextView)findViewById(Dc_ids[i]);
                 dc_text[i].setTypeface(tp);
             }
         }
-        power_text[2].setSoundEffectsEnabled(false);
-        power_text[2].setOnClickListener(new View.OnClickListener() {
+        units_text[3]=(TextView)findViewById(units_ids[3]);
+        power_text[3]=(TextView)findViewById(power_id[3]);
+        power_text[3].setTypeface(tp);
+
+
+        power_text[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //test usb write
-                //for(int i=0;i<finalResults.length;i++)finalResults[i]=45;
-                //write_toFile();
-                secretClick();
 
+                secretClick(1);
+            }
+        });
 
+        encoder_config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                encoderDialog();
             }
         });
 
 
-        final View decorView = getWindow().getDecorView();
 
-        decorView.setOnSystemUiVisibilityChangeListener
-                (new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int visibility) {
-                        // Note that system bars will only be "visible" if none of the
-                        // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
-                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                            // TODO: The system bars are visible. Make any desired
-                            // adjustments to your UI, such as showing the action bar or
-                            // other navigational controls.
-                            //Toast.makeText(MainActivity.this,"FLAG 0",Toast.LENGTH_SHORT).show();
-                            hide();
-                        } else {
-                            // TODO: The system bars are NOT visible. Make any desired
-                            // adjustments to your UI, such as hiding the action bar or
-                            // other navigational controls.
-                           // Toast.makeText(MainActivity.this,"FLAG 1",Toast.LENGTH_SHORT).show();
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction(ACTION_USB_DETACHED);
+        intentFilter.addAction(ACTION_USB_ATTACHED);
+        registerReceiver(UsbDetachReceiver,intentFilter);
 
 
-                        }
-                    }
-                });
+        usbTag=true;
+        loadPreferences();
+
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-          ref(timeStamp);
-        }catch (Exception e){
-            Log.d("Nazim","Timer exception"+e.toString());
+
+            guiUpdate=true;
+
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (ACTION_USB_ATTACHED.equalsIgnoreCase(intent.getAction().toString())){
+
+            Toast.makeText(MainActivity.this, "USB ATTACHED", Toast.LENGTH_SHORT).show();
+            guiUpdate=true;
+            usbTag=true;
         }
     }
 
 
+
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+        guiUpdate=true;
+
+
+    }
+
     @Override
     protected void onPause() {
+
         super.onPause();
-        autoupdate.cancel();
+        guiUpdate=false;
     }
 
     @Override
     protected void onStop() {
+
         super.onStop();
-       autoupdate.cancel();
+        guiUpdate=false;
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        guiUpdate=true;
+
+
     }
 
 
     boolean checkUsb() throws FileNotFoundException {
+
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
         Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
 
         while ((deviceIterator.hasNext())) {
             UsbDevice device = deviceIterator.next();
-            //Toast.makeText(MainActivity.this,"product id : "+device.getProductId(),Toast.LENGTH_LONG).show();
-            //Toast.makeText(MainActivity.this,"vendor id : "+device.getVendorId(),Toast.LENGTH_LONG).show();
 
-            if(device.getDeviceName()!=null) {
-                ///Uncomment this
-                if(device.getVendorId()==4660)
-                usbInterface = MyUSB.findAdbInterface(device,MainActivity.this);
 
-                if (usbInterface != null){
-                    stmUsb=device;
-                    return true;
-                   // Toast.makeText(MainActivity.this,"usb interface : "+usbInterface.toString(),Toast.LENGTH_LONG).show();
-
+                if(device.getVendorId()==VENDOR_ID){
+                    usbInterface = MyUSB.findAdbInterface(device);
+                    if (usbInterface != null){
+                        stmUsb=device;
+                        return true;
+                    }
                 }
             }
-        }
+
         return false;
-    }
-
-    @Override
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id=item.getItemId();
-        if(id==R.id.measure_id){
-
-          secretClick();
-        }
-        else if(id==android.R.id.home)Toast.makeText(MainActivity.this,"HOME",Toast.LENGTH_SHORT).show();
-        return super.onOptionsItemSelected(item);
     }
 
 
     public void write_toFile() {
 
         File file;
-
         try {
+
 
             File dir = new File("/mnt/usbhost1");
             dir.mkdir();
 
-            file = new File(dir, "text.txt");
+            file = new File(dir, "DATA.txt");
             String msg = "";
             if (finalResults != null) {
                 for (int i = 0; i < finalResults.length; i++) {
@@ -380,9 +412,12 @@ public class MainActivity extends AppCompatActivity {
                 bw.write(msg);
                 bw.newLine();
 
+
             } catch (IOException e) {
 
-                e.printStackTrace();
+               //Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
+               e.printStackTrace();
+                flashDiscTag=false;
 
             } finally {
 
@@ -394,91 +429,84 @@ public class MainActivity extends AppCompatActivity {
                     if (fw != null)
                         fw.close();
 
+                    flashDiscTag=true;
+
                 } catch (IOException ex) {
 
                     ex.printStackTrace();
+                    Toast.makeText(MainActivity.this,"No Flash Disc detected !",Toast.LENGTH_SHORT).show();
+                    flashDiscTag=false;
 
                 }
             }
 
             }catch(Exception e){
-                Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
 
+            flashDiscTag=false;
           }
+        if(pressed && flashDiscTag){
+            save.setAlpha((float).5);
+
+        }
+        else if(!pressed && flashDiscTag) {
+            save.setAlpha((float)1);
+            save.setBackgroundColor(Color.TRANSPARENT);
+            Toast.makeText(MainActivity.this,"Saving stoped !",Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void secretClick(){
+    public void secretClick(int code){
 
         long difference=System.currentTimeMillis()-startTime;
         if(difference>1000)count=0;
         else count++;
         startTime=System.currentTimeMillis();
-        if(count>=5) {
+        if(count>=8) {
 
             homeTag=!homeTag;
             if(!homeTag){
-                Toast.makeText(MainActivity.this,"Start on Boot Desactivated",Toast.LENGTH_SHORT).show();
-                autoupdate.cancel();
-                //shareIt();
 
+                if(code==1){
+                    Toast.makeText(MainActivity.this,"Flash Mode",Toast.LENGTH_LONG).show();
+                    shareIt();
+                }else {
+                    Toast.makeText(MainActivity.this,NAZIM,Toast.LENGTH_LONG).show();
+                }
             }
-            else {
-                Toast.makeText(MainActivity.this,"Start on Boot Activated",Toast.LENGTH_SHORT).show();
-                ref(timeStamp);
-            }
-
             count=0;
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if(!homeTag) {
-            try {
-                Log.d("Nazim", getIntent().getCategories().toString());
-
-                if (getIntent().hasCategory(Intent.CATEGORY_HOME))
-                    getIntent().removeCategory(Intent.CATEGORY_HOME);
 
 
-            } catch (Exception e) {
-                Log.d("Nazim", e.toString());
-            }
-            finish();
-        }
+
+
+    void helpDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.help_dialog,null);
+        builder.setView(dialogView);
+
+
+        builder.setCancelable(true);
+        TextView textView=(TextView)dialogView.findViewById(R.id.help_text);
+        textView.setText(HELP);
+
+        LinearLayout layout=(LinearLayout)dialogView.findViewById(R.id.help_layout);
+        layout.getBackground().setAlpha(255);
+
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+
+
     }
-    private void hide() {
 
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
-    }
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
-    public void ref(final long del){
-        autoupdate = new Timer();
-        autoupdate.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        try {
-                            usbTask();
 
-                        } catch (Exception e) {
-                            Log.d("Nazim","Main error"+e.toString());
-                        }
-                    }
-                });
-            }
-        }, 0, del);
-    }
     public void shareIt(){
         try {
 
-           // Intent i = getPackageManager().getLaunchIntentForPackage("com.example.dell.serial");
-            Intent i = getPackageManager().getLaunchIntentForPackage("SHAREit");
+            Intent i = getPackageManager().getLaunchIntentForPackage("com.lenovo.anyshare.gps");
             startActivity(i);
 
             }
@@ -487,5 +515,80 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
     }
+
+    public void encoderDialog(){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.encoder_dialog, null);
+        builder.setView(dialogView);
+
+        final EditText rpmEdit=(EditText)dialogView.findViewById(R.id.edit_rpm);
+        final EditText encoderRatio=(EditText)dialogView.findViewById(R.id.edit_encoder);
+
+        rpmEdit.setHint("Maximum RPM : "+ENCODER_MAX_RPM);
+        encoderRatio.setHint("Encoder Pulses/Revolution : "+ENCODER_PULSES);
+        builder.setCancelable(true);
+
+        Button cancel=(Button)dialogView.findViewById(R.id.cancel);
+        Button validate=(Button)dialogView.findViewById(R.id.validate);
+
+        final AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                savePreferences();
+                alertDialog.dismiss();
+
+            }
+        });
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try{
+                    ENCODER_MAX_RPM=Integer.parseInt(rpmEdit.getText().toString());
+                    ENCODER_PULSES=Integer.parseInt(encoderRatio.getText().toString());
+                    Toast.makeText(MainActivity.this,"Configuration set to\nMax RPM : "+ENCODER_MAX_RPM+
+                            "\nEncoder ratio : "+ENCODER_PULSES,Toast.LENGTH_SHORT).show();
+
+                    g.setMaxValue(ENCODER_MAX_RPM/10);
+                    g.setValuePerNick(ENCODER_MAX_RPM/1000);
+                    savePreferences();
+                    alertDialog.dismiss();
+
+                }catch (Exception e){
+
+                    Toast.makeText(MainActivity.this,"Wrong input format",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+    void savePreferences(){
+
+        @SuppressLint("WrongConstant") SharedPreferences save = getSharedPreferences("save",400);
+        SharedPreferences.Editor editor = save.edit();
+        editor.putInt("rpm",ENCODER_MAX_RPM);
+        editor.putInt("pulseRate",ENCODER_PULSES);
+        editor.commit();
+
+    }
+
+    public void loadPreferences(){
+
+        SharedPreferences load = getSharedPreferences("save",0);
+
+        ENCODER_MAX_RPM = load.getInt("rpm",ENCODER_MAX_RPM);
+        ENCODER_PULSES = load.getInt("pulseRate",ENCODER_PULSES);
+
+
+    }
+
+
+
+
 
 }
